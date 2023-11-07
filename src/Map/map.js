@@ -112,22 +112,26 @@ const Map = () => {
       var options = { units: "miles" };
       var distance = turf.distance(from, to, options);
       const roomDdetails = marker.geometry.roomDdetails;
-
+    
       // Add markers to the map.
-      new mapboxgl.Marker(el)
-        .setLngLat(marker.geometry.coordinates)
-        .setPopup(
-          new mapboxgl.Popup({ offset: 35 })
-            .setLngLat(marker.geometry.coordinates)
-            .setHTML(
-              ReactDOMServer.renderToString(
-                <RawMarkup roomDdetails={roomDdetails} distance={distance} />
-              )
-            )
-        )
-        .addTo(map)
-        .togglePopup();
-    }
+      const marker = new mapboxgl.Marker(el)
+      .setLngLat(marker.geometry.coordinates);
+
+      // Create a popup and set its content using ReactDOMServer.renderToString
+      const popupContent = ReactDOMServer.renderToString(
+      <RawMarkup roomDdetails={roomDdetails} distance={distance} />
+      );
+
+      const popup = new mapboxgl.Popup({ offset: 35 })
+      .setLngLat(marker.geometry.coordinates)
+      .setHTML(popupContent);
+
+      // Set the popup for the marker
+      marker.setPopup(popup);
+
+// Add the marker to the map and toggle the popup
+      marker.addTo(map).togglePopup();
+}
 
     const popup = new mapboxgl.Popup({
       closeButton: false,
