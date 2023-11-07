@@ -115,16 +115,16 @@ const Map = () => {
     
       // Add markers to the map.
       const marker = new mapboxgl.Marker(el)
-      .setLngLat(marker.geometry.coordinates);
+        .setLngLat(marker.geometry.coordinates);
 
       // Create a popup and set its content using ReactDOMServer.renderToString
       const popupContent = ReactDOMServer.renderToString(
-      <RawMarkup roomDdetails={roomDdetails} distance={distance} />
+        <RawMarkup roomDdetails={roomDdetails} distance={distance} />
       );
 
       const popup = new mapboxgl.Popup({ offset: 35 })
-      .setLngLat(marker.geometry.coordinates)
-      .setHTML(popupContent);
+        .setLngLat(marker.geometry.coordinates)
+        .setHTML(popupContent);
 
       // Set the popup for the marker
       marker.setPopup(popup);
