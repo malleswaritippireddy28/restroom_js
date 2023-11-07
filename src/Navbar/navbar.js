@@ -25,6 +25,7 @@ function Home(props) {
     { name: "Home", url: "/" },
     { name: "Add Room", url: "/addroom", isAdmin: true },
     { name: "Maps", url: "/map", isAdmin: true },
+    { name: "Delet Room", url: "/deleteroom", isAdmin: true },
   ]);
   const settings = [
     { name: "Profile", url: "/" },
