@@ -34,7 +34,31 @@ const Map = () => {
   }, [latLng]);
 
   const RawMarkup = ({ roomDdetails, distance }) => {
-    return 1;
+    return (
+      <div class="card">
+        <img
+          src={`${roomDdetails.imageURL}`}
+          alt="Avatar"
+          style={{ width: "100%" }}
+        />
+        <div class="container">
+          <h4>
+            <b>{roomDdetails.name}</b>
+          </h4>
+          <div>
+            <b>Distance</b> {distance?.toFixed(2)}Miles
+          </div>
+          <div>
+            <b>Rating</b> <b>{roomDdetails.rating}</b>
+          </div>
+          <p>
+            {roomDdetails.description}
+            &nbsp;
+            <a href={`detail/${roomDdetails._id}`}>Show Details</a>
+          </p>
+        </div>
+      </div>
+    );
   };
 
   const loadMarkers = async () => {
