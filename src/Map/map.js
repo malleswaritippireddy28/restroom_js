@@ -5,8 +5,7 @@ import { getLocation, getRooms, mapToken } from "../utilities/utility";
 import * as turf from "@turf/turf";
 import { Link, useNavigate } from "react-router-dom";
 import * as ReactDOMServer from "react-dom/server";
-import Star from "@mui/icons-material/StarBorderPurple500";
-import { IconButton } from "@mui/material";
+
 
 const Map = () => {
   mapboxgl.accessToken = mapToken();
