@@ -21,7 +21,6 @@ const AddRoom = () => {
 
   const mapContainer = useRef(null);
   const [latLng, setLatLng] = useState([]);
-  const [zoom, setZoom] = useState(9);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
