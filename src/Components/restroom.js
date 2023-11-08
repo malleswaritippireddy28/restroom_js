@@ -29,7 +29,7 @@ export default function RestRoom({ room, isMobile, ...props }) {
       <Card sx={{ maxWidth: 345, marginBottom: 6 }}>
         <CardMedia
           sx={{ height: 140 }}
-          image={room.imageURL}
+          image={imageURL}
           title="green iguana"
         />
         <CardContent>
