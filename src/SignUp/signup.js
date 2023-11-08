@@ -18,19 +18,18 @@ import { CircularProgress } from "@mui/material";
 
 const defaultTheme = createTheme();
 
-//Add Refactoring code of "Rename Variable" type
 export default function SignUp() {
   const [loader, setLoader] = React.useState(false);
   const navigate = useNavigate();
-  const [userLocation, setUserLocation] = React.useState({ lat: 0, lng: 0 });
+  const [latLng, setLatLng] = React.useState({ lat: 0, lng: 0 });
 
   React.useEffect(() => {
     logout();
-    if (userLocation.lat === 0)
+    if (latLng.lat === 0)
       getLocation((loc) =>
-        setUserLocation({ lat: loc.coords.longitude, lng: loc.coords.latitude })
+        setLatLng({ lat: loc.coords.longitude, lng: loc.coords.latitude })
       );
-  }, [userLocation]);
+  }, [latLng]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
