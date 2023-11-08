@@ -58,20 +58,18 @@ function Home(props) {
     console.log(getToken());
   }, [localStorage]);
 
-  const handleCloseUserMenu = async (url) => {
+  const handleCloseUserMenu = (url) => {
     setAnchorElUser(null);
     try {
       if (url) {
-        if (url === '/login') {
-          await logout();
-          navigate('/login');
-        } else {
-          navigate(url);
+        if (url === "/login") {
+          logout();
+          navigate("/login");
+          return;
         }
+        navigate(url);
       }
-    } catch (error) {
-      console.error('Error handling user menu:', error);
-    }
+    } catch (e) {}
   };
 
   return (
