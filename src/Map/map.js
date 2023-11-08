@@ -119,11 +119,7 @@ const Map = () => {
         .setPopup(
           new mapboxgl.Popup({ offset: 35 })
             .setLngLat(marker.geometry.coordinates)
-            .setHTML(
-              ReactDOMServer.renderToString(
-                <RawMarkup roomDdetails={roomDdetails} distance={distance} />
-              )
-            )
+
         )
         .addTo(map)
         .togglePopup();
