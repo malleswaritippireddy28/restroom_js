@@ -16,22 +16,22 @@ const AddRoom = () => {
   const mapContainer = useRef(null);
   const [latLng, setLatLng] = useState([]);
 
-  // Add Refactored code of type "Rename field"
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const response = await addRoom({
-        email: data.get("email"), // Renamed field from 'location' to 'email'
-        password: data.get("password"),
-        firstName: data.get("firstName"), // Updated field names accordingly
-        lastName: data.get("lastName"), // Updated field names accordingly
-        lat: mLatLng.lat,
-        lng: mLatLng.lng,
-        imageURL: "",
+      location: data.get("email"),
+      password: data.get("password"),
+      name: data.get("firstName"),
+      description: data.get("lastName"),
+      lat: mLatLng.lat,
+      lng: mLatLng.lng,
+      imageURL: "",
     });
     if (response.msg) alert("Saved");
     else alert(response.msg);
-};
+  };
 
   const map_ = useRef(null);
   var marker = null;
