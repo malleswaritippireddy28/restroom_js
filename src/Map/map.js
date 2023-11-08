@@ -61,31 +61,25 @@ const Map = () => {
     );
   };
 
-//Add Refactoring type:Return Modified Value  
-const transformRoomsToGeoJSON = (rooms) => {
-  return {
-    type: "FeatureCollection",
-    features: rooms.map((room) => ({
-      type: "Feature",
-      properties: {
-        message: room.description,
-        iconSize: [60, 60],
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [room.lng, room.lat],
-        roomDetails: room, // Corrected typo in property name
-      },
-    })),
-  };
-};
-
 const loadMarkers = async () => {
-  const rooms = await getRooms();
-  const geojson = transformRoomsToGeoJSON(rooms);
-  return geojson;
-};
+    const rooms = await getRooms();
+    const map = map_.current;
 
+    const geojson = {
+      type: "FeatureCollection",
+      features: rooms.map((room) => ({
+        type: "Feature",
+        properties: {
+          message: room.description,
+          iconSize: [60, 60],
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [room.lng, room.lat],
+          roomDdetails: room,
+        },
+      })),
+    };
 
     new mapboxgl.Marker()
       .setLngLat(latLng)
