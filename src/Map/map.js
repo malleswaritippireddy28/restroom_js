@@ -92,46 +92,7 @@ const Map = () => {
       .togglePopup();
 
     // Add markers to the map.
-    for (const marker of geojson.features) {
-      // Create a DOM element for each marker.
-      const el = document.createElement("div");
-      const width = marker.properties.iconSize[0];
-      const height = marker.properties.iconSize[1];
-      el.className = "marker";
-      el.style.backgroundImage = `url(https://main--playful-taffy-7c5a83.netlify.app/marker.png)`;
-      el.style.width = `${width}px`;
-      el.style.height = `${height}px`;
-      el.style.backgroundSize = "100%";
-      el.style.backgroundRepeat = "no-repeat";
 
-      el.addEventListener("click", () => {
-        console.log(marker.geometry.coordinates, latLng);
-      });
-      var from = turf.point(marker.geometry.coordinates);
-      var to = turf.point(latLng);
-      var options = { units: "miles" };
-      var distance = turf.distance(from, to, options);
-      const roomDdetails = marker.geometry.roomDdetails;
-    
-      // Add markers to the map.
-      const marker = new mapboxgl.Marker(el)
-        .setLngLat(marker.geometry.coordinates);
-
-      // Create a popup and set its content using ReactDOMServer.renderToString
-      const popupContent = ReactDOMServer.renderToString(
-        <RawMarkup roomDdetails={roomDdetails} distance={distance} />
-      );
-
-      const popup = new mapboxgl.Popup({ offset: 35 })
-        .setLngLat(marker.geometry.coordinates)
-        .setHTML(popupContent);
-
-      // Set the popup for the marker
-      marker.setPopup(popup);
-
-// Add the marker to the map and toggle the popup
-      marker.addTo(map).togglePopup();
-}
 
     const popup = new mapboxgl.Popup({
       closeButton: false,
