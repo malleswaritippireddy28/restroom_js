@@ -17,12 +17,40 @@ function App() {
       <BrowserRouter basename="/">
         <Navbar>
           <Routes>
-            <Route path="/" element={ <Home />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/login" Component={SignIn} />
             <Route path="/signup" Component={SignUp} />
-            <Route path="/map" element={ <Map />} />
-            <Route path="/addroom" element={ <AddRoom />} />
-            <Route path="/detail/:id" element={ <Detail />} />
+            <Route
+              path="/map"
+              element={
+                <ProtectedRoute>
+                  <Map />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/addroom"
+              element={
+                <ProtectedRoute role={["ADMIN"]}>
+                  <AddRoom />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/detail/:id"
+              element={
+                <ProtectedRoute>
+                  <Detail />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<Error />} />
           </Routes>
         </Navbar>
