@@ -17,22 +17,18 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Home = () => {
   const [roomsData, setRoomsData] = useState([]);
-  const [loader, setLoader] = useState([]);
   useEffect(() => {
     getRoomsData();
   }, []);
   const getRoomsData = async () => {
-    setLoader(true);
     const data = await getRooms();
     setRoomsData(data);
-    setLoader(false);
   };
   const matches = useMediaQuery("(max-width:600px)");
 
   return (
     <>
       <div className="loader">
-        {loader && <CircularProgress color="inherit" />}
       </div>
       <Grid container spacing={2}>
         <Grid item xs={2}></Grid>
