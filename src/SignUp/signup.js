@@ -14,12 +14,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import CopyRight from "../Components/copyright";
 import { getLocation, logout, signUp } from "../utilities/utility";
-import { CircularProgress } from "@mui/material";
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const [loader, setLoader] = React.useState(false);
   const navigate = useNavigate();
   const [latLng, setLatLng] = React.useState({ lat: 0, lng: 0 });
 
