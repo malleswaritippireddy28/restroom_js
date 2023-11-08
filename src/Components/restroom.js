@@ -104,6 +104,11 @@ export default function RestRoom({ room, isMobile, ...props }) {
           </CardActions>
         </Box>
       </Box>
+      {getToken()?.isAdmin && (
+        <Button size="small" onClick={() => {}}>
+          <Delete onClick={onDeleteRoom} />
+        </Button>
+      )}
     </Card>
   );
 }
