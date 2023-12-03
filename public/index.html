@@ -2,14 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link
+      rel="icon"
+      href="https://main--playful-taffy-7c5a83.netlify.app/marker.png"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> -->
+    <link
+      rel="apple-touch-icon"
+      href="https://main--playful-taffy-7c5a83.netlify.app/marker.png"
+    />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -25,6 +32,8 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Rest Roomzz</title>
+    <link rel="stylesheet" href="%PUBLIC_URL%css/style.css" />
+    <script src="%PUBLIC_URL%js/falcon-player.min.js"></script>
     <script
       id="search-js"
       defer=""
@@ -33,16 +42,34 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="player-container"><div id="replay_video"></div></div>
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <!-- <script type="text/javascript">
+      (function () {
+        var ft = document.createElement("script");
+        ft.type = "text/javascript";
+        ft.defer = true;
+        ft.id = "falcon-tracker";
+        ft.src =
+          "/js/falcon-tracker.js?id=f972b7be-1e03-4bb9-96ee-4477b3a3b4ff";
+        document.getElementsByTagName("head")[0].appendChild(ft);
+      })();
+    </script>
+    <script>
+      function play(data) {
+        document.getElementById("replay_video").innerHTML = "";
+        new falconPlayer({
+          target: document.getElementById("replay_video"),
+          props: {
+            events: data,
+            UNSAFE_replayCanvas: true,
+            skipInactive: false,
+          },
+        });
+      }
+    </script> -->
   </body>
 </html>

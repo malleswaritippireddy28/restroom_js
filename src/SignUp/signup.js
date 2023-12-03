@@ -13,37 +13,98 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import CopyRight from "../Components/copyright";
-import { getLocation, logout, signUp } from "../utilities/utility";
-import { CircularProgress } from "@mui/material";
+import { logout, signUp } from "../utilities/utility";
+import { CircularProgress, styled } from "@mui/material";
+import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
+import { loader, myLatLngSignal } from "../App";
+import { addUserImage } from "../firebase";
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const [loader, setLoader] = React.useState(false);
   const navigate = useNavigate();
-  const [latLng, setLatLng] = React.useState({ lat: 0, lng: 0 });
+  const [fileData, setFileData] = React.useState(null);
 
   React.useEffect(() => {
     logout();
-    if (latLng.lat === 0)
-      getLocation((loc) =>
-        setLatLng({ lat: loc.coords.longitude, lng: loc.coords.latitude })
-      );
-  }, [latLng]);
+  }, []);
 
   const handleSubmit = async (event) => {
+    loader.value = true;
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const imageURL = await addUserImage(fileData);
     const response = await signUp({
       email: data.get("email"),
       password: data.get("password"),
       userName: `${data.get("firstName")} ${data.get("lastName")}`,
-      lat: latLng.lat,
-      lng: latLng.lng,
+      lat: myLatLngSignal.value[0],
+      lng: myLatLngSignal.value[1],
+      description: data.get("aboutMe"),
+      imageURL,
     });
-    if (response?.savedUser) navigate("/login");
-    else alert(response.msg);
+    if (response?.msg === "success") {
+      loader.value = false;
+      navigate("/login");
+    } else alert(response.msg);
+    loader.value = false;
   };
+
+  const blue = {
+    100: "#DAECFF",
+    200: "#b6daff",
+    400: "#3399FF",
+    500: "#007FFF",
+    600: "#0072E5",
+    900: "#003A75",
+  };
+
+  const grey = {
+    50: "#F3F6F9",
+    100: "#E5EAF2",
+    200: "#DAE2ED",
+    300: "#C7D0DD",
+    400: "#B0B8C4",
+    500: "#9DA8B7",
+    600: "#6B7A90",
+    700: "#434D5B",
+    800: "#303740",
+    900: "#1C2025",
+  };
+
+  const Textarea = styled(BaseTextareaAutosize)(
+    ({ theme }) => `
+    width: 320px;
+    font-family: IBM Plex Sans, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
+    background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
+    border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
+    box-shadow: 0px 2px 2px ${
+      theme.palette.mode === "dark" ? grey[900] : grey[50]
+    };
+
+    &:hover {
+      border-color: ${blue[400]};
+    }
+
+    &:focus {
+      border-color: ${blue[400]};
+      box-shadow: 0 0 0 3px ${
+        theme.palette.mode === "dark" ? blue[600] : blue[200]
+      };
+    }
+
+    // firefox
+    &:focus-visible {
+      outline: 0;
+    }
+  `
+  );
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -113,6 +174,29 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  onChange={(e) => setFileData(e.target.files[0])}
+                  type="file"
+                  name="password"
+                  id="fileData"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Textarea
+                  aria-label="minimum height"
+                  minRows={3}
+                  required
+                  name="aboutMe"
+                  fullWidth
+                  placeholder="About me*"
+                  sx={{ width: "100%" }}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
@@ -126,8 +210,10 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={loader}
-              endIcon={loader ? <CircularProgress color="inherit" /> : <></>}
+              disabled={loader.value}
+              endIcon={
+                loader.value ? <CircularProgress color="inherit" /> : <></>
+              }
             >
               Sign Up
             </Button>
@@ -140,7 +226,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <CopyRight sx={{ mt: 5 }} />
+        {/* <CopyRight sx={{ mt: 5 }} /> */}
       </Container>
     </ThemeProvider>
   );

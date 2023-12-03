@@ -1,0 +1,248 @@
+.falcon-wrapper {
+  position: relative;
+}
+.falcon-mouse {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transition: left 0.05s linear, top 0.05s linear;
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMwMCIgd2lkdGg9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkYXRhLW5hbWU9IkxheWVyIDEiIHZpZXdCb3g9IjAgMCA1MCA1MCI+PHBhdGggZD0iTTQ4LjcxIDQyLjkxTDM0LjA4IDI4LjI5IDQ0LjMzIDE4YTEgMSAwIDAwLS4zMy0xLjYxTDIuMzUgMS4wNmExIDEgMCAwMC0xLjI5IDEuMjlMMTYuMzkgNDRhMSAxIDAgMDAxLjY1LjM2bDEwLjI1LTEwLjI4IDE0LjYyIDE0LjYzYTEgMSAwIDAwMS40MSAwbDQuMzgtNC4zOGExIDEgMCAwMC4wMS0xLjQyem0tNS4wOSAzLjY3TDI5IDMyYTEgMSAwIDAwLTEuNDEgMGwtOS44NSA5Ljg1TDMuNjkgMy42OWwzOC4xMiAxNEwzMiAyNy41OEExIDEgMCAwMDMyIDI5bDE0LjU5IDE0LjYyeiIvPjwvc3ZnPg==");
+  border-color: transparent;
+}
+.falcon-mouse:after {
+  content: "";
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: #2b8bd7;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+}
+.falcon-mouse.active:after {
+  animation: click 0.2s ease-in-out 1;
+}
+.falcon-mouse.touch-device {
+  background-image: none;
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  margin-left: -37px;
+  margin-top: -37px;
+  border: 4px solid rgba(73, 80, 246, 0);
+  transition: left 0s linear, top 0s linear, border-color 0.2s ease-in-out;
+}
+.falcon-mouse.touch-device.touch-active {
+  border-color: #4950f6;
+  transition: left 0.25s linear, top 0.25s linear, border-color 0.2s ease-in-out;
+}
+.falcon-mouse.touch-device:after {
+  opacity: 0;
+}
+.falcon-mouse.touch-device.active:after {
+  animation: touch-click 0.2s ease-in-out 1;
+}
+.falcon-mouse-tail {
+  position: absolute;
+  pointer-events: none;
+}
+@keyframes click {
+  0% {
+    opacity: 0.3;
+    width: 20px;
+    height: 20px;
+  }
+  50% {
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+  }
+}
+@keyframes touch-click {
+  0% {
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+  }
+  50% {
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+  }
+}
+.falcon-player {
+  position: relative;
+  background: white;
+  float: left;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.falcon-player__frame {
+  overflow: hidden;
+}
+.falcon-wrapper {
+  float: left;
+  clear: both;
+  transform-origin: top left;
+  left: 50%;
+  top: 50%;
+}
+.falcon-wrapper > iframe {
+  border: none;
+}
+.falcon-controller.svelte-19ke1iv.svelte-19ke1iv {
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0 0 5px 5px;
+}
+.falcon-timeline.svelte-19ke1iv.svelte-19ke1iv {
+  width: 80%;
+  display: flex;
+  align-items: center;
+}
+.falcon-timeline__time.svelte-19ke1iv.svelte-19ke1iv {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  color: #11103e;
+}
+.falcon-progress.svelte-19ke1iv.svelte-19ke1iv {
+  flex: 1;
+  height: 12px;
+  background: #eee;
+  position: relative;
+  border-radius: 3px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-top: solid 4px #fff;
+  border-bottom: solid 4px #fff;
+}
+.falcon-progress.disabled.svelte-19ke1iv.svelte-19ke1iv {
+  cursor: not-allowed;
+}
+.falcon-progress__step.svelte-19ke1iv.svelte-19ke1iv {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #e0e1fe;
+}
+.falcon-progress__handler.svelte-19ke1iv.svelte-19ke1iv {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 2px;
+  transform: translate(-50%, -50%);
+  background: #2b8bd7;
+}
+.falcon-controller__btns.svelte-19ke1iv.svelte-19ke1iv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+.falcon-controller__btns.svelte-19ke1iv button.svelte-19ke1iv {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.falcon-controller__btns.svelte-19ke1iv button.svelte-19ke1iv {
+  /* background-image: url(../img/logo.png); */
+  background-repeat: no-repeat;
+}
+.falcon-controller__btns.svelte-19ke1iv button.svelte-19ke1iv:active {
+  background: #e0e1fe;
+}
+.falcon-controller__btns.svelte-19ke1iv button.active.svelte-19ke1iv {
+  color: #fff;
+  background: #2b8bd7;
+}
+.falcon-controller__btns.svelte-19ke1iv button.svelte-19ke1iv:disabled {
+  cursor: not-allowed;
+}
+.switch.svelte-9brlez.svelte-9brlez.svelte-9brlez {
+  height: 1em;
+  display: flex;
+  align-items: center;
+}
+.switch.disabled.svelte-9brlez.svelte-9brlez.svelte-9brlez {
+  opacity: 0.5;
+}
+.label.svelte-9brlez.svelte-9brlez.svelte-9brlez {
+  margin: 0 8px;
+}
+.switch.svelte-9brlez input[type="checkbox"].svelte-9brlez.svelte-9brlez {
+  position: absolute;
+  opacity: 0;
+}
+.switch.svelte-9brlez label.svelte-9brlez.svelte-9brlez {
+  width: 2em;
+  height: 1em;
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+.switch.disabled.svelte-9brlez label.svelte-9brlez.svelte-9brlez {
+  cursor: not-allowed;
+}
+.switch.svelte-9brlez label.svelte-9brlez.svelte-9brlez:before {
+  content: "";
+  position: absolute;
+  width: 2em;
+  height: 1em;
+  left: 0.1em;
+  transition: background 0.1s ease;
+  background: #2b8bd7;
+  border-radius: 50px;
+}
+.switch.svelte-9brlez label.svelte-9brlez.svelte-9brlez:after {
+  content: "";
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  border-radius: 50px;
+  left: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+  background: #fcfff4;
+  animation: switch-off 0.2s ease-out;
+  z-index: 2;
+}
+.switch {
+  display: none !important;
+}
+.switch.svelte-9brlez
+  input[type="checkbox"].svelte-9brlez:checked
+  + label.svelte-9brlez:before {
+  background: #2b8bd7;
+}
+.switch.svelte-9brlez
+  input[type="checkbox"].svelte-9brlez:checked
+  + label.svelte-9brlez:after {
+  animation: switch-on 0.2s ease-out;
+  left: 1.1em;
+}
+
+.player-container {
+  margin: auto;
+  width: 50%;
+  margin-top: 89px;
+}

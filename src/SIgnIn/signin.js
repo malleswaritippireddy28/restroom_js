@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CopyRight from "../Components/copyright";
 import { getToken, login, setToken } from "../utilities/utility";
 import { CircularProgress } from "@mui/material";
+import { GoogleLogin } from "@react-oauth/google";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -122,7 +123,7 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <CopyRight sx={{ mt: 8, mb: 4 }} />
+        {/* <CopyRight sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );

@@ -8,6 +8,7 @@ const CopyRight = (props) => {
       variant="body2"
       color="text.secondary"
       align="center"
+      className="copyRight"
       {...props}
     >
       {"Copyright © "}

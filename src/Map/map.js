@@ -1,37 +1,31 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import ToggleMap from "../Components/toggle-map";
-import { getLocation, getRooms, mapToken } from "../utilities/utility";
+import { getRooms, mapToken } from "../utilities/utility";
 import * as turf from "@turf/turf";
 import { Link, useNavigate } from "react-router-dom";
 import * as ReactDOMServer from "react-dom/server";
+import Star from "@mui/icons-material/StarBorderPurple500";
+import { CircularProgress, Grid, IconButton } from "@mui/material";
+import { loader, myLatLngSignal } from "../App";
 
-
-const Map = () => {
+const Map = ({ isMobile }) => {
   mapboxgl.accessToken = mapToken();
-  const navigate = useNavigate();
   const mapContainer = useRef(null);
-  const [latLng, setLatLng] = useState([]);
   const [zoom, setZoom] = useState(9);
   const map_ = useRef(null);
   useEffect(() => {
-    getLocation((loc) => {
-      if (latLng.length === 0)
-        setLatLng([loc.coords.longitude, loc.coords.latitude]);
-      console.log("MY Position", loc);
-    });
-    console.log("latLng", latLng);
-    if (!map_.current && latLng.length === 0) return; // initialize map only once
+    if (!map_.current && myLatLngSignal.value.length === 0) return; // initialize map only once
     map_.current = new mapboxgl.Map({
       container: mapContainer.current || "",
       style: "mapbox://styles/mapbox/streets-v12",
-      center: latLng,
+      center: myLatLngSignal.value,
       zoom: zoom,
     });
     loadMarkers();
     map_.current.addControl(new mapboxgl.NavigationControl(), "top-left");
     document.getElementsByClassName("mapboxgl-ctrl-bottom-right")[0].remove();
-  }, [latLng]);
+  }, []);
 
   const RawMarkup = ({ roomDdetails, distance }) => {
     return (
@@ -61,8 +55,13 @@ const Map = () => {
     );
   };
 
-const loadMarkers = async () => {
-    const rooms = await getRooms();
+  const loadMarkers = async () => {
+    loader.value = true;
+    const rooms = await getRooms(
+      100,
+      myLatLngSignal.value[0],
+      myLatLngSignal.value[1]
+    );
     const map = map_.current;
 
     const geojson = {
@@ -82,10 +81,10 @@ const loadMarkers = async () => {
     };
 
     new mapboxgl.Marker()
-      .setLngLat(latLng)
+      .setLngLat(myLatLngSignal.value)
       .setPopup(
         new mapboxgl.Popup({ offset: 35 })
-          .setLngLat(latLng)
+          .setLngLat(myLatLngSignal.value)
           .setHTML(`<h1>You</h1>`)
       )
       .addTo(map_.current)
@@ -105,10 +104,10 @@ const loadMarkers = async () => {
       el.style.backgroundRepeat = "no-repeat";
 
       el.addEventListener("click", () => {
-        console.log(marker.geometry.coordinates, latLng);
+        console.log(marker.geometry.coordinates, myLatLngSignal.value);
       });
       var from = turf.point(marker.geometry.coordinates);
-      var to = turf.point(latLng);
+      var to = turf.point(myLatLngSignal.value);
       var options = { units: "miles" };
       var distance = turf.distance(from, to, options);
       const roomDdetails = marker.geometry.roomDdetails;
@@ -171,16 +170,29 @@ const loadMarkers = async () => {
       map.getCanvas().style.cursor = "";
       popup.remove();
     });
+    loader.value = false;
   };
+
   return (
-    <div>
-      <ToggleMap type={"map"} />
-      <div
-        ref={mapContainer}
-        className="map-container"
-        style={{ height: "90vh", width: "100%", position: "relative" }}
-      />
-    </div>
+    <>
+      <Grid container spacing={2} sx={{ marginTop: 2 }}>
+        <Grid item xs={12}>
+          {/* <MapBox /> */}
+          <div
+            ref={mapContainer}
+            className="map-container"
+            style={{ height: "90vh", width: "100%", position: "relative" }}
+          />
+        </Grid>
+        {isMobile ? (
+          <ToggleMap type={"map"} />
+        ) : (
+          <Grid item xs={2}>
+            <ToggleMap type={"map"} />
+          </Grid>
+        )}
+      </Grid>
+    </>
   );
 };
 
